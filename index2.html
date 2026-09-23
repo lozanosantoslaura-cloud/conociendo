@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conociendo mis Emociones | Portal & Juego Interactivo</title>
+    <style>
+        :root {
+            --azul-principal: #0288d1;
+            --azul-claro: #e1f5fe;
+            --azul-oscuro: #01579b;
+            --blanco: #ffffff;
+            --gris-fondo: #f4f7f6;
+            --texto-oscuro: #2c3e50;
+            --sombra-suave: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --borde-redondeado: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--gris-fondo);
+            color: var(--texto-oscuro);
+            line-height: 1.6;
+        }
+
+        /* HEADER & NAV */
+        header {
+            background: linear-gradient(135deg, #0288d1, #01579b);
+            color: var(--blanco);
+            padding: 1.2rem 2rem;
+            box-shadow: var(--sombra-suave);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-status {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+
+        .avatar-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--azul-claro);
+            color: var(--azul-oscuro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* MAIN LAYOUT */
+        main {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .card {
+            background-color: var(--blanco);
+            border-radius: var(--borde-redondeado);
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--sombra-suave);
+        }
+
+        h2 {
+            color: var(--azul-principal);
+            margin-bottom: 1.2rem;
+            font-size: 1.8rem;
+            border-bottom: 3px solid var(--azul-claro);
+            padding-bottom: 0.5rem;
+        }
+
+        /* SECCIÓN REGISTRO / LOGIN */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .portal-hero h1 {
+            font-size: 2.2rem;
+            color: var(--azul-oscuro);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .portal-hero p {
+            color: #546e7a;
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-card {
+            background-color: var(--blanco);
+            border: 2px solid var(--azul-claro);
+            border-radius: var(--borde-redondeado);
+            padding: 2rem;
+            box-shadow: var(--sombra-suave);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+            color: var(--azul-oscuro);
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #cfd8dc;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--azul-principal);
+        }
+
+        .btn {
+            background-color: var(--azul-principal);
+            color: var(--blanco);
+            border: none;
+            padding: 0.9rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--azul-oscuro);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(2, 136, 209, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--azul-principal);
+            color: var(--azul-principal);
+            width: auto;
+        }
+
+        .btn-outline:hover {
+            background: var(--azul-claro);
+            color: var(--azul-oscuro);
+        }
+
+        /* GRID TÉCNICAS E INFORMACIÓN */
+        .flex-container {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .flex-text {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .img-container {
+            flex: 1;
+            min-width: 280px;
+            text-align: center;
+        }
+
+        .img-container img {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            border-radius: var(--borde-redondeado);
+            box-shadow: var(--sombra-suave);
+        }
+
+        .tecnicas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tecnica-box {
+            background-color: var(--azul-claro);
+            padding: 1.5rem;
+            border-radius: var(--borde-redondeado);
+            border-left: 6px solid var(--azul-principal);
+        }
+
+        /* VISTA DEL JUEGO */
+        #seccionJuego {
+            display: none;
+        }
+
+        .juego-container {
+            text-align: center;
+            background-color: var(--blanco);
+            border: 2px solid var(--azul-claro);
+            border-radius: var(--borde-redondeado);
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        #gameCanvas {
+            background: linear-gradient(to bottom, #e1f5fe, #ffffff);
+            border-radius: 12px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+            max-width: 100%;
+            height: auto;
+        }
+
+        .opciones-juego {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+
+        .btn-opcion {
+            background-color: #ffffff;
+            border: 2px solid var(--azul-principal);
+            color: var(--azul-oscuro);
+            padding: 0.9rem 1.2rem;
+            border-radius: 12px;
+            font-size: 0.98rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .btn-opcion:hover {
+            background-color: var(--azul-principal);
+            color: var(--blanco);
+            transform: translateX(5px);
+        }
+
+        .feedback-banner {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            display: none;
+            font-weight: bold;
+            font-size: 1rem;
+            animation: aparecer 0.3s ease;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-banner.bien {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+
+        .feedback-banner.regular {
+            background-color: #fffde7;
+            color: #f57f17;
+            border: 1px solid #fff59d;
+        }
+
+        /* DASHBOARD DEL ESTUDIANTE */
+        .stats-badge {
+            display: inline-block;
+            background: var(--azul-claro);
+            color: var(--azul-oscuro);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--azul-principal);
+            color: var(--blanco);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV BAR -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">💙 Conociendo Mis Emociones</div>
+            <div class="user-status" id="userStatus">
+                <span>Estado: Invitado</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- SECCIÓN 0: REGISTRO / PORTAL DE INICIO -->
+        <section class="card" id="seccionPortal">
+            <div class="portal-grid">
+                <div class="portal-hero">
+                    <h1>Bienvenido al Portal de Bienestar Escolar</h1>
+                    <p>Un espacio seguro creado para aprender a identificar, expresar y regular lo que sentimos. Regístrate para guardar tu progreso y desbloquear el simulador interactivo de situaciones escolares.</p>
+                    <div style="text-align: center;">
+                        <img src="salud1.jpg" alt="Estudiantes apoyándose" style="width: 100%; max-width: 380px; border-radius: 15px;">
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3 style="color: var(--azul-oscuro); margin-bottom: 1rem; text-align: center;">Crear Cuenta de Estudiante</h3>
+                    <form id="registroForm" onsubmit="registrarUsuario(event)">
+                        <div class="form-group">
+                            <label for="nombre">Nombre Completo</label>
+                            <input type="text" id="nombre" placeholder="Ej. Sofia Martínez" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="curso">Curso / Grado</label>
+                            <select id="curso" required>
+                                <option value="">Selecciona tu curso...</option>
+                                <option value="6º Grado">6º Grado</option>
+                                <option value="7º Grado">7º Grado</option>
+                                <option value="8º Grado">8º Grado</option>
+                                <option value="9º Grado">9º Grado</option>
+                                <option value="10º Grado">10º Grado</option>
+                                <option value="11º Grado">11º Grado</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo Institucional o Personal</label>
+                            <input type="email" id="email" placeholder="estudiante@colegio.edu" required>
+                        </div>
+                        <button type="submit" class="btn">Registrarme e Iniciar Juego 🚀</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 1: IMPORTANCIA (ACCESIBLE PARA TODOS) -->
+        <section class="card">
+            <h2>1. ¿Por qué conocer mis emociones en nuestro colegio?</h2>
+            <div class="flex-container">
+                <div class="flex-text">
+                    <p>Reconocer lo que sentimos nos ayuda a tomar mejores decisiones, construir amistades sinceras y manejar la presión de las clases o los exámenes. Aceptar la tristeza, el enojo o el miedo no nos debilita: nos permite comunicarnos y pedir apoyo a docentes y compañeros cuando lo necesitamos.</p>
+                </div>
+                <div class="img-container">
+                    <img src="salud1.jpg" alt="Apoyo entre compañeros en la escuela">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: TÉCNICAS (ACCESIBLE PARA TODOS) -->
+        <section class="card">
+            <h2>2. Guía rápida para identificar, expresar y manejar emociones</h2>
+            <div class="tecnicas-grid">
+                <div class="tecnica-box">
+                    <h3>🔍 1. Identificar</h3>
+                    <p>Pausa y detecta tus señales físicas (tensión en el cuello, manos frías, respiración agitada). Ponle un nombre claro a tu emoción.</p>
+                </div>
+                <div class="tecnica-box">
+                    <h3>💬 2. Expresar</h3>
+                    <p>Usa la primera persona: <em>"Me siento abrumado cuando..."</em>. Escribe, dibuja o desahógate con alguien de confianza.</p>
+                </div>
+                <div class="tecnica-box">
+                    <h3>🌱 3. Manejar</h3>
+                    <p>Aplica técnicas de respiración consciente (4-7-8), toma una pausa activa o camina un momento para bajar la intensidad impulsiva.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN JUEGO INTERACTIVO (SOLO TRAS REGISTRO) -->
+        <section class="card" id="seccionJuego">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1rem;">
+                <h2>🎮 Juego: "El Camino del Bienestar Emocional"</h2>
+                <span class="stats-badge" id="badgeJugador">Jugador: -</span>
+            </div>
+            <p>Navega a través de situaciones de la vida escolar diaria tomando decisiones acertadas para mantener la calma emocional.</p>
+            <br>
+
+            <div class="juego-container">
+                <canvas id="gameCanvas" width="700" height="300"></canvas>
+                <div class="opciones-juego" id="contenedorOpciones"></div>
+                <div id="feedbackBanner" class="feedback-banner"></div>
+                <button id="btnSiguiente" class="btn" style="display: none; width: auto; margin-top: 1rem;" onclick="siguienteNivel()">Continuar ➔</button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: COMPROMISO FAMILIAR -->
+        <section class="card">
+            <h2>3. Un mensaje comprometiendo a las familias</h2>
+            <div class="flex-container">
+                <div class="img-container">
+                    <img src="salud2.jpg" alt="Familia escuchando a su hijo con empatía">
+                </div>
+                <div class="flex-text">
+                    <p>Invitamos a todas las familias de nuestra comunidad a convertirse en un puerto seguro para los jóvenes. Escuchar activamente sin juzgar, validar sus sentimientos y preguntar con frecuencia <strong>"¿Cómo te sientes hoy?"</strong> fortalece su confianza y resiliencia para la vida.</p>
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 1rem;" onclick="alert('¡Gracias por comprometerte a escuchar activamente y apoyar el bienestar emocional de tus hijos!')">Comprometerme como Familia 💙</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Programa de Bienestar Emocional y Apoyo entre Compañeros - Colegio</p>
+    </footer>
+
+    <!-- LÓGICA DE REGISTRO Y JUEGO INTERACTIVO -->
+    <script>
+        // Variables globales del jugador
+        let usuarioActual = null;
+
+        function registrarUsuario(e) {
+            e.preventDefault();
+            const nombre = document.getElementById("nombre").value;
+            const curso = document.getElementById("curso").value;
+            const email = document.getElementById("email").value;
+
+            usuarioActual = { nombre, curso, email };
+
+            // Actualizar interfaz
+            document.getElementById("userStatus").innerHTML = `
+                <div class="avatar-badge">${nombre.charAt(0).toUpperCase()}</div>
+                <div><strong>${nombre}</strong> (${curso})</div>
+            `;
+            document.getElementById("badgeJugador").innerText = `Jugador: ${nombre} (${curso})`;
+
+            // Ocultar formulario de registro y mostrar sección del juego
+            document.getElementById("seccionPortal").style.display = "none";
+            document.getElementById("seccionJuego").style.display = "block";
+
+            // Desplazar suavemente hasta el juego
+            document.getElementById("seccionJuego").scrollIntoView({ behavior: 'smooth' });
+
+            // Iniciar renderizado e interacciones del juego
+            cargarOpciones();
+            render();
+        }
+
+        // LÓGICA DEL CANVAS Y JUEGO
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let nivelActual = 0;
+        let puntosCalma = 50;
+        let tiempo = 0;
+
+        const niveles = [
+            {
+                situacion: "Situación 1: Ansiedad antes de una exposición.",
+                emocion: "😰 Nervioso",
+                desc: "Sientes nudo en el estómago y palpitaciones antes de salir a hablar al frente.",
+                opciones: [
+                    { texto: "A) Respirar profundo 3 veces e identificar que sentir nervios es una reacción normal.", cambio: +20, tipo: "bien", fb: "¡Excelente! Nombrar la emoción y respirar ayuda a calmar el cuerpo." },
+                    { texto: "B) Decirle a todos que te va a ir fatal y bloquearte por completo.", cambio: -15, tipo: "regular", fb: "Alimentar pensamientos negativos incrementa la ansiedad." }
+                ]
+            },
+            {
+                situacion: "Situación 2: Discusión en un trabajo grupal.",
+                emocion: "😡 Molesto",
+                desc: "Un compañero no hizo su parte y el profesor está listo para revisar la tarea.",
+                opciones: [
+                    { texto: "A) Gritarle al compañero frente al salón para reclamarle.", cambio: -20, tipo: "regular", fb: "La agresión aumenta el conflicto sin ofrecer soluciones." },
+                    { texto: "B) Decirle con calma: 'Me frustra que no aportaras, busquemos juntos una opción con el profe'.", cambio: +25, tipo: "bien", fb: "¡Muy bien! Usaste comunicación asertiva expresando tu sentir sin atacar." }
+                ]
+            },
+            {
+                situacion: "Situación 3: Un comentario confuso en un grupo de chat.",
+                emocion: "😔 Triste / Confundido",
+                desc: "Notas un mensaje en WhatsApp que parece una indirecta pesada hacia ti.",
+                opciones: [
+                    { texto: "A) Pausar, reflexionar y escribirle en privado para aclarar qué quiso decir.", cambio: +20, tipo: "bien", fb: "¡Gran decisión! Aclarar directamente evita malentendidos." },
+                    { texto: "B) Responder con un insulto en el grupo y salirte inmediatamente.", cambio: -20, tipo: "regular", fb: "Reaccionar en caliente suele agravar las discusiones en redes." }
+                ]
+            },
+            {
+                situacion: "Situación 4: Abrumado al llegar a casa del colegio.",
+                emocion: "😫 Agotado",
+                desc: "Tuviste un día difícil y en casa te preguntan cómo te fue.",
+                opciones: [
+                    { texto: "A) Expresar amablemente: 'Tuve un día pesado, tomaré 15 minutos de descanso y conversamos'.", cambio: +20, tipo: "bien", fb: "¡Genial! Comunicaste tu necesidad de espacio con respeto." },
+                    { texto: "B) Dar un portazo e ignorar a todos cuando intentan hablarte.", cambio: -15, tipo: "regular", fb: "Aislarte de golpe genera preocupación e incomprensión en tu familia." }
+                ]
+            },
+            {
+                situacion: "Situación 5: Un compañero solo y triste en el recreo.",
+                emocion: "🤝 Empatía",
+                desc: "Ves a alguien de tu salón cabizbajo y apartado del resto.",
+                opciones: [
+                    { texto: "A) Acercarte, sentarte a su lado y ofrecerle tu compañía o escucharlo si desea hablar.", cambio: +25, tipo: "bien", fb: "¡Increíble actitud! Apoyar a tus compañeros fortalece el bienestar escolar." },
+                    { texto: "B) Pasar de largo pensando que no es tu asunto.", cambio: -10, tipo: "regular", fb: "Mostrar interés y empatía puede transformar el día de alguien." }
+                ]
+            }
+        ];
+
+        function render() {
+            tiempo += 0.05;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Fondo
+            ctx.fillStyle = "#e0f7fa";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Patio verde
+            ctx.fillStyle = "#81c784";
+            ctx.fillRect(0, 220, canvas.width, 80);
+
+            // Nubes
+            ctx.fillStyle = "#ffffff";
+            let nubeX = (Math.sin(tiempo * 0.5) * 20) + 100;
+            ctx.beginPath();
+            ctx.arc(nubeX, 50, 25, 0, Math.PI * 2);
+            ctx.arc(nubeX + 25, 45, 30, 0, Math.PI * 2);
+            ctx.arc(nubeX + 50, 50, 25, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Avatar
+            let bounceY = Math.sin(tiempo * 3) * 3;
+            let posX = 120;
+            let posY = 170 + bounceY;
+
+            ctx.fillStyle = "#0288d1";
+            ctx.fillRect(posX - 15, posY, 30, 45);
+
+            ctx.fillStyle = "#ffcc80";
+            ctx.beginPath();
+            ctx.arc(posX, posY - 20, 20, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Ojos
+            ctx.fillStyle = "#333";
+            ctx.beginPath();
+            ctx.arc(posX - 7, posY - 22, 3, 0, Math.PI * 2);
+            ctx.arc(posX + 7, posY - 22, 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Boca dinámica
+            ctx.beginPath();
+            if (puntosCalma >= 50) {
+                ctx.arc(posX, posY - 18, 10, 0, Math.PI);
+            } else {
+                ctx.arc(posX, posY - 10, 8, Math.PI, Math.PI * 2);
+            }
+            ctx.stroke();
+
+            // Diálogo en pantalla
+            if (nivelActual < niveles.length) {
+                let actual = niveles[nivelActual];
+                ctx.fillStyle = "#ffffff";
+                ctx.strokeStyle = "#0288d1";
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.roundRect(180, 40, 480, 100, 15);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.fillStyle = "#01579b";
+                ctx.font = "bold 15px Segoe UI";
+                ctx.fillText(actual.situacion, 200, 70);
+                ctx.fillStyle = "#2c3e50";
+                ctx.font = "14px Segoe UI";
+                ctx.fillText(`Estado: ${actual.emocion}`, 200, 95);
+                ctx.fillText(actual.desc, 200, 120);
+            } else {
+                ctx.fillStyle = "#ffffff";
+                ctx.beginPath();
+                ctx.roundRect(180, 40, 480, 130, 15);
+                ctx.fill();
+                ctx.fillStyle = "#01579b";
+                ctx.font = "bold 18px Segoe UI";
+                ctx.fillText(`🎉 ¡Felicidades, ${usuarioActual ? usuarioActual.nombre : 'Estudiante'}!`, 200, 75);
+                ctx.font = "15px Segoe UI";
+                ctx.fillText(`Completaste el recorrido con un ${puntosCalma}% de Calma Emocional.`, 200, 105);
+                ctx.fillText("Tus respuestas demuestran un excelente manejo socioemocional.", 200, 135);
+            }
+
+            // Indicador de Calma
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(20, 20, 150, 22);
+            ctx.strokeStyle = "#0288d1";
+            ctx.strokeRect(20, 20, 150, 22);
+
+            let colorBarra = puntosCalma > 60 ? "#4caf50" : (puntosCalma > 30 ? "#ffeb3b" : "#f44336");
+            ctx.fillStyle = colorBarra;
+            ctx.fillRect(21, 21, Math.max(0, Math.min(148, (puntosCalma / 100) * 148)), 20);
+
+            ctx.fillStyle = "#000";
+            ctx.font = "bold 11px Segoe UI";
+            ctx.fillText(`Calma: ${puntosCalma}%`, 65, 35);
+
+            requestAnimationFrame(render);
+        }
+
+        function cargarOpciones() {
+            const contenedor = document.getElementById("contenedorOpciones");
+            const banner = document.getElementById("feedbackBanner");
+            const btnSiguiente = document.getElementById("btnSiguiente");
+
+            contenedor.innerHTML = "";
+            banner.style.display = "none";
+            btnSiguiente.style.display = "none";
+
+            if (nivelActual >= niveles.length) return;
+
+            let actual = niveles[nivelActual];
+
+            actual.opciones.forEach((opc) => {
+                let btn = document.createElement("button");
+                btn.className = "btn-opcion";
+                btn.innerText = opc.texto;
+                btn.onclick = () => procesarRespuesta(opc);
+                contenedor.appendChild(btn);
+            });
+        }
+
+        function procesarRespuesta(opcion) {
+            puntosCalma = Math.min(100, Math.max(0, puntosCalma + opcion.cambio));
+
+            const banner = document.getElementById("feedbackBanner");
+            banner.className = `feedback-banner ${opcion.tipo}`;
+            banner.innerText = opcion.fb;
+            banner.style.display = "block";
+
+            const botones = document.querySelectorAll(".btn-opcion");
+            botones.forEach(b => b.style.pointerEvents = "none");
+
+            document.getElementById("btnSiguiente").style.display = "inline-block";
+        }
+
+        function siguienteNivel() {
+            nivelActual++;
+            if (nivelActual < niveles.length) {
+                cargarOpciones();
+            } else {
+                document.getElementById("contenedorOpciones").innerHTML = "";
+                document.getElementById("feedbackBanner").style.display = "none";
+                document.getElementById("btnSiguiente").style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
